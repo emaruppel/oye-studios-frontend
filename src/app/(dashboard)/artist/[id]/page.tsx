@@ -4,11 +4,12 @@ import { CheckBadgeIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import { formatNumber } from "@/lib/utils";
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default function ArtistProfilePage({ params }: Props) {
-  const artist = mockArtists.find((a) => a.id === params.id) || mockArtists[0];
+export default async function ArtistProfilePage({ params }: Props) {
+  const { id } = await params;
+  const artist = mockArtists.find((a) => a.id === id) || mockArtists[0];
   const videos = mockVideos.filter((v) => v.artistId === artist.id);
 
   return (
